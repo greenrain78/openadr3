@@ -1,0 +1,8 @@
+.idea
+
+
+# ADR 프로그램
+ADR/logs
+
+# DB 프로그램
+DB/data
