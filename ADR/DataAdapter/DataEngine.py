@@ -42,3 +42,5 @@ def read_api_data(siteId, perfId, api_time):
 
 def read_test_data():
     pass
+
+def save_data()

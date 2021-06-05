@@ -20,6 +20,12 @@ if __name__ == '__main__':
     # log = getLogger(__name__)
     # log.info('start main')
     #
+    # 데이터 가져오기
+
+
+    # 데이터 저장
+
+
     test_schedule()
     create_schedule(test_schedule, "test hello", second=2)
     run_schedule()
