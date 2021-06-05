@@ -54,3 +54,10 @@ def predict(input_data: pd.DataFrame):
     print(model.coef_)
     print(model.score(x_score_dataset, y_score_dataset))
 
+
+def save_model(model):
+    pass
+
+
+def load_model(model):
+    pass

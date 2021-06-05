@@ -8,27 +8,24 @@ from apscheduler.schedulers.background import BackgroundScheduler
 
 log = logging.getLogger(__name__)
 
-
-class SchedulerManager:
-    log.info("SchedulerManager init schedule")
-
-    @classmethod
-    def init_schedule(cls):
-        # 스캐줄 생성
-        cls.schedule = BackgroundScheduler()
-        log.info("SchedulerManager init schedule")
-        return cls.schedule
-
-    @classmethod
-    def get_schedule(cls) -> BackgroundScheduler:
-        return cls.schedule
-
-    @classmethod
-    def create_schedule(cls, method, schedule_id: str, hour: int, minutes: int, seconds: int):
-        cls.schedule.add_job(method, 'cron', hour=hour, minutes=minutes, seconds=seconds, id=schedule_id)
-
-    @classmethod
-    def delete_schedule(cls, schedule_id: str):
-        cls.schedule.resume_job(schedule_id)
+# 스캐줄 생성
+schedule = BackgroundScheduler()
+log.debug("SchedulerManager init schedule")
 
 
+def create_schedule(method, schedule_id: str, **schedule_time):
+    """
+    :param method: 실행할 함수
+    :param schedule_id: 스캐줄 id
+    :param schedule_time: 반복할 시간
+    :return:
+    """
+    schedule.add_job(method, 'cron', id=schedule_id, **schedule_time)
+
+
+def delete_schedule(schedule_id: str):
+    schedule.resume_job(schedule_id)
+
+
+def run_schedule():
+    schedule.start()

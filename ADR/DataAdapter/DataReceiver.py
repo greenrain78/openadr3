@@ -23,14 +23,13 @@ class DataReceiver(object):
             'Authorization': '1234qwer',
         }
 
-    @classmethod
-    def check_api_eqps(cls, siteId: str):
+    def check_api_eqps(self, siteId: str):
         """
         :param siteId:
         :return:
         """
-        url = f'{cls.api_url}/ems/eqps/{siteId}'
-        response = requests.get(url, headers=cls.header_data)
+        url = f'{self.api_url}/ems/eqps/{siteId}'
+        response = requests.get(url, headers=self.header_data)
         json_resp = response.json()
 
         return json_resp.get("data", [])

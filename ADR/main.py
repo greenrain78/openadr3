@@ -1,9 +1,15 @@
 import json
+from datetime import datetime
 from logging import getLogger
 from logging.config import dictConfig
 
-from ANN.ANNEngine import train, predict
-from Controller.ScheduleManager import SchedulerManager
+from ANN.PredictEngine import run_predict
+from Controller.ScheduleManager import run_schedule, create_schedule
+
+
+def test_schedule():
+    print(f"hello {datetime.now()}", flush=True)
+
 
 if __name__ == '__main__':
     # 로그 생성
@@ -14,10 +20,17 @@ if __name__ == '__main__':
     # log = getLogger(__name__)
     # log.info('start main')
     #
-    # schduler = SchedulerManager.init_schedule()
+    test_schedule()
+    create_schedule(test_schedule, "test hello", second=2)
+    run_schedule()
+    # schedulerM = SchedulerManager()
+    #
+    # schedulerM.create_schedule(run_train, "train", train_time)
+    # schedulerM.create_schedule(run_predict, "train", train_time)
 
-    # todo 작업 추가
-    # 1주일
     # 15분
-    train()
-    predict()
+    # schedulerM.run_schedule()
+    while True:
+        pass
+
+    print("end")

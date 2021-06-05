@@ -2,37 +2,36 @@ from logging import getLogger
 
 import pymysql
 
+from settings import mariaDB_IP, mariaDB_ID, mariaDB_password, mariaDB_DB_name, mariaDB_port
+
 log = getLogger(__name__)
 
 
-class DBSession:
+def getConn():
+    # 커서 생성
+    conn = pymysql.connect(
+        host=mariaDB_IP,
+        user=mariaDB_ID,
+        password=mariaDB_password,
+        db=mariaDB_DB_name,
+        charset='utf8',
+        port=mariaDB_port
+    )
+    return conn
 
-    @staticmethod
-    def getConn(self):
+
+def runSQL(sql):
+    try:
+        conn = getConn()
         # 커서 생성
-        conn = pymysql.connect(
-            host='localhost',
-            user='root',
-            password='1234',
-            db='test',
-            charset='utf8',
-            port=4491
-        )
-        return conn
+        cur = conn.cursor()
+        # sql문 실행
+        cur.execute(sql)
+        result = cur.fetchall()
 
-    @classmethod
-    def runSQL(cls, sql):
-        try:
-            conn = cls.getConn()
-            # 커서 생성
-            cur = conn.cursor()
-            # sql문 실행
-            cur.execute(sql)
-            result = cur.fetchall()
-
-            # DB에 반영
-            conn.commit()
-            conn.close()
-            return result
-        except Exception as e:
-            log.error(e)
+        # DB에 반영
+        conn.commit()
+        conn.close()
+        return result
+    except Exception as e:
+        log.error(e)
